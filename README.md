@@ -1,223 +1,107 @@
-# DEP Data Engineering Starter Kit
+# Seismic Risk and Actual Damage Analysis for General Santos City
 
-Welcome to the **Data Engineering Pilipinas Open Track**. This folder is your project scaffold — everything you need to build one real, deployable data project over 24 weeks.
-
----
-
-## Your Journey at a Glance
-
-```mermaid
-flowchart TD
-    A([🚀 Join the Program]) --> B[Copy the Starter Kit\nto your own public GitHub repo]
-    B --> C[Set up your Python environment\nand clone the repo locally]
-    C --> D[Follow the weekly curriculum\nin the phase folders]
-
-    D --> E{End of phase?\nMilestone due?}
-    E -- No --> D
-    E -- Yes --> F[Push your work\nand copy your commit hash]
-
-    F --> G[Open a Milestone Issue\non the curriculum repo]
-    G --> H{Auto-Check runs\nautomatically}
-
-    H -- ❌ Checks failed --> I[Fix the flagged issues\nand push a new commit]
-    I --> J[Post the new commit hash\nas a comment on the same issue]
-    J --> H
-
-    H -- ✅ All checks passed --> K[Milestone Reviewer\nevaluates your work]
-
-    K -- needs-improvement --> L[Read the reviewer's comment\nfix your work and push]
-    L --> J
-
-    K -- passed --> M{Is this M6?}
-    M -- No --> D
-    M -- Yes --> N([🎉 Deploy your dashboard\nand present your project])
-```
+**Program:** Data Engineering Pilipinas — Open Track (Cohort 1)  
+**Builder:** Adriane Abunda  
+**GitHub:** [AdrianeJone](https://github.com/AdrianeJone)  
+**Timeline:** June 2026 – December 2026 (24 weeks)
 
 ---
 
-## Before You Start
+## The Problem
 
-You need:
-- A free [GitHub account](https://github.com)
-- [Python 3.10+](https://www.python.org/downloads/) installed on your machine
-- [Git](https://git-scm.com/) installed and configured
+On June 8, 2026 at 7:37 AM, a magnitude 7.8 tectonic earthquake struck offshore Maasim, Sarangani, one of the strongest to hit the Philippines. The earthquake was felt at intensities of I–VIII across Regions VIII, IX, X, XI, XII, BARMM, and CARAGA. A tsunami warning followed, with confirmed wave heights recorded at multiple coastal stations across Mindanao.
 
----
+According to NDRRMC Situational Report No. 22 (as of July 1, 2026), the earthquake resulted in **88 deaths, 1,316 injuries, and 24 missing persons** across Mindanao. A total of 1,679,152 persons across 391,275 families were affected. Across the region, 113,279 houses were damaged, 18,360 of them totally destroyed, along with 1,539 infrastructure items costing an estimated ₱1.47 billion in damage. General Santos City was among the worst affected areas, sustaining widespread structural damage including collapsed buildings, a damaged university, and disruption to the city's airport and seaport.
 
-## Step 1 — Copy This Starter Kit to Your GitHub
+What makes this event uniquely significant from a data perspective is that **PHIVOLCS had already done the risk assessment work.** In May 2025, just one year before the earthquake, DOST-PHIVOLCS officially turned over city-scale liquefaction and tsunami hazard maps specifically for General Santos City to the local government. These maps were developed using advanced geophysical, geotechnical, and AI-driven methodologies under the ACER-DeLTA Project.
 
-You have two options:
+This raises a question worth answering with data:
 
-**Option A — Use This Repo as a Template (recommended)**
+> **Did the damage from the June 8, 2026 M7.8 earthquake actually occur where PHIVOLCS predicted it would?**
 
-1. Go to the top of this GitHub repo and click **Use this template → Create a new repository**
-2. Name it something like `dep-data-engineering-<your-name>`
-3. Set it to **Public** (required for milestone submission)
-4. Click **Create repository**
-
-**Option B — Fork and Copy Manually**
-
-1. Fork this repo to your account
-2. In your fork, delete everything outside of `cohorts/starter-kit/` and restructure the contents as your root
-
-> Your repo must be **public** at all times so reviewers and the auto-checker can access it. Do not make it private at any point during the program — even temporarily. If your repo is private when you submit, the auto-check will fail and your submission will not be reviewed.
+Specifically: do the barangays in General Santos City identified as high liquefaction and seismic risk zones match the barangays that reported the most damage after the earthquake?
 
 ---
 
-## Step 2 — Clone Your Repo Locally
+## Why This Matters
+
+If the hazard maps accurately predicted where damage occurred, that validates them as reliable planning tools for rebuilding and future-proofing the city. If they did not match, that is equally important, it tells engineers, urban planners, and LGUs where the maps need to be updated before the next earthquake.
+
+The Cotabato Trench has produced multiple destructive earthquakes historically, including the 1976 Moro Gulf earthquake that killed roughly 8,000 people. The same PHIVOLCS DeLTA mapping project is being rolled out to other vulnerable cities nationwide. A data-driven validation of these maps for General Santos City could serve as a replicable framework for other cities across the Philippines.
+
+---
+
+## Data Sources
+
+| Data | Source | Format |
+|------|--------|--------|
+| Historical earthquake catalog (2016–2026) | PHIVOLCS Earthquake Bulletins / USGS API | CSV / API |
+| Liquefaction and seismic hazard maps (GenSan) | PHIVOLCS GIS Web Portal | KMZ / Shapefile |
+| Post-earthquake damage reports by barangay | NDRRMC Situational Reports (No. 1–22) | PDF |
+| Satellite damage and landslide imagery | Philippine Space Agency (PhilSA) | GIS imagery |
+| Barangay boundary reference | PSA Philippine Standard Geographic Code (PSGC) | Shapefile / CSV |
+
+**Primary sources:**
+- PHIVOLCS Earthquake Bulletins: https://earthquake.phivolcs.dost.gov.ph/
+- PHIVOLCS GIS Hazard Maps: https://gisweb.phivolcs.dost.gov.ph/gisweb/earthquake-volcano-related-hazard-gis-information
+- NDRRMC Situational Reports: https://ndrrmc.gov.ph/
+- USGS Earthquake API: https://earthquake.usgs.gov/fdsnws/event/1/
+- PSA PSGC: https://psa.gov.ph/classification/psgc/
+
+---
+
+## Project Phases
+
+| Phase | Weeks | What I will build |
+|-------|-------|-------------------|
+| 1 — Foundations | 1–4 | Define problem, confirm data sources, set up repo |
+| 2 — Data Collection | 5–6 | Ingest earthquake catalog via PHIVOLCS/USGS, download hazard map KMZ files, collect NDRRMC situational reports |
+| 3 — Data Processing | 7–12 | Parse PDFs, clean and standardize barangay names, join hazard zone data with actual damage data |
+| 4 — Analysis & Insights | 13–16 | Compare predicted vs actual damage per barangay, identify matches and mismatches, produce charts |
+| 5 — Project Packaging | 17–20 | Polish pipeline, connect all scripts end-to-end, write documentation |
+| 6 — Deployment | 21–24 | Deploy interactive geospatial dashboard via GitHub Pages |
+
+---
+
+## How to Run
+
+*To be updated as the project progresses.*
 
 ```bash
-git clone https://github.com/<your-username>/<your-repo-name>.git
-cd <your-repo-name>
+# Phase 2 — Data ingestion
+python scripts/ingest.py
+
+# Phase 3 — Data transformation
+python scripts/transform.py
 ```
 
 ---
 
-## Step 3 — Understand the Folder Structure
+## Key Findings
 
-```
-your-repo/
-├── data/
-│   ├── raw/            ← Phase 2: raw data files go here
-│   └── processed/      ← Phase 3: cleaned/transformed data goes here
-├── scripts/
-│   ├── ingest.py       ← Phase 2: your data ingestion script
-│   └── transform.py    ← Phase 3: your data transformation script
-├── notebooks/          ← Phase 4 & 5: your analysis notebooks
-├── output/
-│   └── figures/        ← Phase 4: saved charts and visuals
-├── dashboard/
-│   └── index.html      ← Phase 6: your deployed dashboard or report
-├── requirements.txt    ← list all your Python dependencies here
-└── README.md           ← this file — update it as your project grows
-```
-
-You will fill in each folder phase by phase. Do not try to fill everything at once.
+*To be updated after Phase 4.*
 
 ---
 
-## Step 4 — Set Up Your Python Environment
+## Live Dashboard
 
-```bash
-python -m venv venv
-source venv/bin/activate        # Mac/Linux
-venv\Scripts\activate           # Windows
+*To be deployed in Phase 6.*
 
-pip install -r requirements.txt
-```
-
-Add any new packages you install to `requirements.txt`:
-
-```bash
-pip freeze > requirements.txt
-```
+`https://adrianejone.github.io/dep-data-engineering-open-track-adriane/`
 
 ---
 
-## Step 5 — Work Through the Phases
+## References
 
-| Phase | Weeks | What you build |
-|-------|-------|----------------|
-| 1 — Foundations | 1–4 | Define your problem, find your data source, set up this repo |
-| 2 — Data Collection | 5–6 | Write `scripts/ingest.py`, pull raw data into `data/raw/` |
-| 3 — Data Processing | 7–12 | Write `scripts/transform.py`, clean and model data in `data/processed/` |
-| 4 — Analysis & Insights | 13–16 | Explore data in `notebooks/`, produce charts in `output/figures/` |
-| 5 — Predictive / Alt Track | 17–20 | Build a model (Path A) or advanced analysis (Path B) |
-| 6 — Deployment | 21–24 | Deploy `dashboard/index.html` via GitHub Pages, prepare your demo |
+- NDRRMC. (2026, July 1). *Situational Report No. 22 — Effects of the Magnitude 7.8 Earthquake in Maasim, Sarangani.* National Disaster Risk Reduction and Management Council.
+- DOST-PHIVOLCS. (2026, June 8). *Primer on the 08 June 2026 Magnitude (Mw) 7.8 Offshore Sarangani Earthquake.* https://www.phivolcs.dost.gov.ph/primer-on-the-08-june-2026-magnitude-mw-7-8-offshore-sarangani-earthquake/
+- DOST-PHIVOLCS. (2025, May 28). *Press Release: PHIVOLCS Turns Over Enhanced Liquefaction and Tsunami Hazard Maps to General Santos LGU.* https://www.phivolcs.dost.gov.ph/press-release-phivolcs-turns-over-enhanced-liquefaction-and-tsunami-hazard-maps-to-general-santos-lgu/
 
 ---
 
-## Step 6 — Submit at Each Milestone
+## Acknowledgements
 
-At the end of each phase, submit a milestone issue on the **curriculum repo**:
-
-1. Go to [github.com/dataengineeringpilipinas/dep-data-engineering-open-track/issues/new/choose](https://github.com/dataengineeringpilipinas/dep-data-engineering-open-track/issues/new/choose)
-2. Select the template matching your milestone (e.g. **Milestone 1 — Foundations Complete**)
-3. Fill in your name, cohort, repo URL, and **commit hash**
-
-**How to get your commit hash:**
-
-```bash
-git log --oneline -1
-# Example output: a1b2c3d feat: add ingestion script
-# Your commit hash is: a1b2c3d (or the full 40-character version)
-```
-
-Copy the full hash:
-
-```bash
-git log -1 --format="%H"
-```
-
-After you submit, the auto-checker will run and post a comment on your issue within a few minutes. Fix anything flagged before waiting for a reviewer.
-
-**What happens next:**
-
-| Step | Who | What |
-|------|-----|------|
-| Auto-Check | Bot | Clones your repo at the commit hash and checks for required files. Posts ✅/❌ per item. |
-| Fix & Resubmit | You | If any check fails, fix the issue, push a new commit, and post the new commit hash as a comment on the same issue. The auto-check re-runs automatically. |
-| Review | Volunteer | Once all checks pass, a Milestone Reviewer reads your work and applies one of two labels. |
-| `passed` | Reviewer | You're clear to move to the next phase. |
-| `needs-improvement` | Reviewer | The reviewer leaves one specific comment. Fix it, push a new commit, and post the new commit hash as a comment on the same issue. |
-
-> Reviewers aim to respond within **5 days**. If you haven't heard back in 7 days, post in the Discord community channel and tag your moderator.
-
-**How to resubmit after a `needs-improvement` verdict:**
-
-```bash
-# Fix your work, then:
-git add .
-git commit -m "fix: address reviewer feedback"
-git push
-
-# Get your new commit hash:
-git log -1 --format="%H"
-
-# Paste the hash as a comment on your existing milestone issue — do NOT open a new issue.
-```
-
----
-
-## Step 7 — Enable GitHub Pages (Phase 6)
-
-To deploy your dashboard:
-
-1. In your repo, go to **Settings → Pages**
-2. Under **Source**, select **Deploy from a branch**
-3. Choose `main` branch and `/dashboard` folder
-4. Click **Save** — your live URL will appear as `https://<your-username>.github.io/<your-repo-name>/`
-
----
-
-## Updating Your README
-
-Replace this file with your own project README as you progress. At minimum, your README should include:
-
-- What problem you are solving
-- Where your data comes from
-- How to run your scripts (`ingest.py`, `transform.py`)
-- Your key findings (Phase 4+)
-- Your live dashboard URL (Phase 6)
-
----
-
-## Getting Help
-
-- Check the weekly READMEs in the curriculum repo for topic guides and resources
-- Post in the community Discord if you are stuck after 2 hours on a problem
-- Review `docs/FAQ.md` in the curriculum repo for common questions
-
----
-
-## Milestone Quick Reference
-
-| Milestone | When | What reviewers check |
-|-----------|------|---------------------|
-| M0 | Week 1 | Repo is public, README describes your project |
-| M1 | Week 3–4 | Folder structure exists, requirements.txt present |
-| M2 | Week 6 | `ingest.py` runs, `data/raw/` has real data |
-| M3 | Week 12 | `transform.py` runs, `data/processed/` has output |
-| M4 | Week 16 | Notebook exists and runs end-to-end |
-| M5 | Week 20 | Pipeline is connected, path-specific outputs saved |
-| M6 | Week 24 | Dashboard is live at a public URL |
+- DOST-PHIVOLCS for publicly available seismic and hazard data
+- NDRRMC for situational reports
+- Philippine Space Agency (PhilSA) for satellite damage imagery
+- Data Engineering Pilipinas Open Track organizing team and volunteers
