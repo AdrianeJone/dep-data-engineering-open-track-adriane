@@ -98,23 +98,12 @@ The Cotabato Trench has produced multiple destructive earthquakes historically, 
 
 ---
 
-## How to Run
+## First Pull Path
 
-*To be updated as the project progresses.*
-
-```bash
-# Phase 2 — Data ingestion
-python scripts/ingest.py
-
-# Phase 3 — Data transformation
-python scripts/transform.py
-```
-
----
-
-## Key Findings
-
-*To be updated after Phase 4.*
+The first data pull will target the PHIVOLCS Earthquake Bulletins
+(https://earthquake.phivolcs.dost.gov.ph/) via `scripts/ingest.py`,
+scraping daily bulletin pages into a structured CSV saved to
+`data/raw/phivolcs_earthquake_bulletins.csv`.
 
 ---
 
@@ -126,10 +115,3 @@ python scripts/transform.py
 
 
 ---
-
-## Acknowledgements
-
-- DOST-PHIVOLCS for publicly available seismic and hazard data
-- NDRRMC for situational reports
-- Philippine Space Agency (PhilSA) for satellite damage imagery
-- Data Engineering Pilipinas Open Track organizing team and volunteers
